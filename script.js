@@ -20,7 +20,7 @@ let windLayer = null;
 let isDataLoading = false;
 let lastUpdated = null;
 let autoRefreshInterval = null;
-
+ 
 // Initialize the application
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("author-name").textContent = AUTHOR_NAME;
