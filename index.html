@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rufina&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #bfcba0;
+            color: #333;
+            font-family: 'Rufina', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex-grow: 1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 120px;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1em;
+            font-family: 'Courier New', Courier, monospace;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .nav {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .nav a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .content {
+            margin: 0 auto;
+            max-width: 650px;
+            padding: 0 20px;
+        }
+
+        .about {
+            font-size: 1.4em;
+            line-height: 1.5;
+            margin-bottom: 120px;
+        }
+
+        .about a {
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #333;
+            transition: border-bottom-width 0.2s ease;
+        }
+
+        .about a:hover {
+            border-bottom-width: 2px;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 40px 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        .social-links a {
+            color: #333;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                margin-bottom: 80px;
+            }
+
+            .about {
+                font-size: 1.2em;
+                margin-bottom: 80px;
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="logo">Jonathan</a>
+
+        </header>
+
+        <main class="content">
+            <div class="about">
+                Hi, I'm a computer engineer specializing in hardware design and embedded systems, 
+                with a deep fascination for both the technical and creative realms. Beyond crafting in Verilog 
+                and C, I explore human expression through <a href="https://jonathanfang.substack.com/" target="_blank">writing</a>, 
+                <a href="https://www.instagram.com/jfo.tos/" target="_blank">photography</a>, 
+                and <a href="digitalArt.html" target="_blank">digital art</a>.
+                
+                <p>My work merges the precision of engineering with the fluidity of digital aesthetics, driven by a curiosity to 
+                understand not just how systems work, but why people interact with them the way they do.</p>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/jfangg/" target="_blank">→ LINKEDIN</a>
+                <a href="https://github.com/jvanger" target="_blank">→ GIT</a>
+                <a href="resume.pdf" target="_blank">→ RESUME</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
