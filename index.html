@@ -3,143 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonathan</title>
+    <title>Jonathan Fang</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rufina&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #bfcba0;
-            color: #333;
-            font-family: 'Rufina', serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            flex-grow: 1;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 120px;
-            padding: 0 20px;
-        }
-
-        .logo {
-            font-size: 1em;
-            font-family: 'Courier New', Courier, monospace;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .nav {
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .nav a {
-            color: #333;
-            text-decoration: none;
-        }
-
-        .content {
-            margin: 0 auto;
-            max-width: 650px;
-            padding: 0 20px;
-        }
-
-        .about {
-            font-size: 1.4em;
-            line-height: 1.5;
-            margin-bottom: 120px;
-        }
-
-        .about a {
-            color: #333;
-            text-decoration: none;
-            border-bottom: 1px solid #333;
-            transition: border-bottom-width 0.2s ease;
-        }
-
-        .about a:hover {
-            border-bottom-width: 2px;
-        }
-
-        .footer {
-            margin-top: auto;
-            padding: 40px 20px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9em;
-        }
-
-        .social-links a {
-            color: #333;
-            text-decoration: none;
-            transition: transform 0.2s ease;
-        }
-
-        .social-links a:hover {
-            transform: translateX(5px);
-        }
-
-        @media (max-width: 600px) {
-            .header {
-                margin-bottom: 80px;
-            }
-
-            .about {
-                font-size: 1.2em;
-                margin-bottom: 80px;
-            }
-
-            .social-links {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <div class="container">
-        <header class="header">
-            <a href="/" class="logo">Jonathan</a>
-
-        </header>
-
-        <main class="content">
-            <div class="about">
-                Hi, I'm a computer engineer specializing in hardware design and embedded systems, 
-                with a deep fascination for both the technical and creative realms. Beyond crafting in Verilog 
-                and C, I explore human expression through <a href="https://jonathanfang.substack.com/" target="_blank">writing</a>, 
-                <a href="https://www.instagram.com/jfo.tos/" target="_blank">photography</a>, 
-                and <a href="digitalArt.html" target="_blank">digital art</a>.
-                
-                <p>My work merges the precision of engineering with the fluidity of digital aesthetics, driven by a curiosity to 
-                understand not just how systems work, but why people interact with them the way they do.</p>
+<body class="dark">
+    <!-- Navigation -->
+    <nav class="navbar">
+            <div class="nav-container">
+                <a href="#about" class="logo" aria-label="Go to About section">
+                    <span class="logo-full">J</span>
+                    <span class="logo-short">Jonathan</span>
+                </a>
+            
+            <div class="nav-items">
+                <button class="nav-item active" data-section="projects">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span class="nav-text">Projects</span>
+                </button>
+                <button class="nav-item" data-section="blogs">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span class="nav-text">Thoughts</span>
+                </button>
+                <button class="nav-item" data-section="about">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="nav-text">About</span>
+                </button>
+                <button class="theme-toggle" id="themeToggle">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
             </div>
-        </main>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- About Section -->
+        <section class="content-section" id="about">
+            <div class="section-content fade-in">
+                <h1 class="section-title">Hi, I'm Jonathan</h1>
+                <div class="about-text">
+                    <p>I'm an ece grad from UW-Madison, currently teaching CS and calculus while building things that probably shouldn't work together.  
+                        My work spans the full spectrum: from optimizing FPGA timing constraints and designing SPI controllers at the hardware level, to 
+                        shipping full-stack web applications with OAuth flows and payment processing. I've built everything from autonomous maze-solving robots to a campus-wide digital ID system actually deployed at my university, because I get restless when projects stay theoretical.</p>
+
+                    <p>What excites me most is the intersection of hardware and software. There's something uniquely satisfying about understanding systems at the silicon level, 
+                        then using that knowledge to build products that people actually use. I'm most fulfilled when I'm solving problems that demand both precision engineering 
+                        and thoughtful design. With experience spanning SystemVerilog to React, I gravitate toward projects that bridge different domains. 
+</p>
+<p> In my free time, I'm usually prototyping something new or exploring how technology can make tedious processes genuinely simple.</p>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/jfangg/" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/jvanger" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="JF_Embedded.pdf" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <span>Resume</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="content-section active" id="projects">
+            <div class="section-content fade-in">
+                <h1 class="section-title">Projects</h1>
+                <div class="scroll-container" id="projectsContainer">
+                    <div class="cards-viewport">
+                        <!-- Projects ordered chronologically (newest first) -->
+                        <div class="card project-card">
+                            <a href="#" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">Media Bias Lab</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">aug '25</div>
+                                </div>
+                                <div class="card-description">
+                                    a full-stack web application that analyzes news articles across five bias dimensions using gpt-4, presenting results through interactive visualizations and keyword analysis.
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card project-card">
+                            <a href="#" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">Strava Mule</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">jun '25</div>
+                                </div>
+                                <div class="card-description">
+                                    an intelligent gpx activity simulator that generates biometrically accurate fitness tracking data with realistic elevation changes, fatigue modeling, and pace variations for testing and visualization.
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card project-card">
+                            <a href="#" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">Partial Scan Test Design Optimization</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">may '25</div>
+                                </div>
+                                <div class="card-description">
+                                    an optimized partial scan testing architecture that achieved 46% efficiency improvement and 80% reduction in chain length compared to traditional full scan implementations.
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card project-card">
+                            <a href="#" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">GitHub Contribution Backfill</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">apr '25</div>
+                                </div>
+                                <div class="card-description">
+                                    a full-stack saas platform that streamlines github contribution backfilling through oauth authentication, featuring stripe-integrated subscription tiers and supabase backend for seamless commit management without command-line requirements.
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card project-card">
+                            <a href="#" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">Campus Digital ID Platform</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">dec '24</div>
+                                </div>
+                                <div class="card-description">
+                                    a comprehensive digital student id system for uw madison featuring class navigation, peer matching, assignment tracking, and nfc-enabled instant profile sharing.
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card project-card">
+                            <a href="#" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">Infrared Sensor Fusion</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">nov '23</div>
+                                </div>
+                                <div class="card-description">
+                                    an autonomous maze-solving robot utilizing imu sensor fusion and real-time path planning to navigate complex environments with sub-5% positioning error designed in verilog and python.
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card project-card">
+                            <a href="#" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">PSoC6 Embedded Console Board</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">nov '23</div>
+                                </div>
+                                <div class="card-description">
+                                    hardware accelerator for neural network inference designed in verilog. optimized matrix multiplication and activation functions for edge computing applications.
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+  
+                    <div class="scroll-indicator top" id="projectsScrollTop"></div>
+                    <div class="scroll-indicator bottom" id="projectsScrollBottom"></div>
+                    <div class="scroll-hint">scroll to see more</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blogs Section -->
+        <section class="content-section" id="blogs">
+            <div class="section-content fade-in">
+                <h1 class="section-title">Writing</h1>
+                <div class="scroll-container" id="blogsContainer">
+                    <div class="cards-viewport">
+                        <!-- Add your blog posts here - you'll need to update these with your Substack links -->
+                        <div class="card blog-card">
+                            <a href="https://jonathanfang.substack.com/p/emergency-contact" target="_blank" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">Emergency contact</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">june 2025</div>
+                                </div>
+                                <div class="card-description">
+                                    on what it means to matter
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card blog-card">
+                            <a href="https://jonathanfang.substack.com/p/midwestern-ache" target="_blank" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">Midwestern ache</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">may 2025</div>
+                                </div>
+                                <div class="card-description">
+                                    reflections in the 608
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card blog-card">
+                            <a href="https://jonathanfang.substack.com/p/bruise-colored-memories" target="_blank" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">bruise colored memories</div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">march 2025</div>
+                                </div>
+                                <div class="card-description">
+                                    corner store confessions & tender severance
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card blog-card">
+                            <a href="https://jonathanfang.substack.com/p/indifference-or-security" target="_blank" class="card-link">
+                                <div class="card-header">
+                                    <div class="card-title">Indifference or Insecurity </div>
+                                    <span class="card-border"></span>
+                                    <div class="card-date">september 2024</div>
+                                </div>
+                                <div class="card-description">
+                                    and what it means for relationships
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="scroll-indicator top" id="blogsScrollTop"></div>
+                    <div class="scroll-indicator bottom" id="blogsScrollBottom"></div>
+                    <div class="scroll-hint">scroll to see more</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-container">
+            <button class="modal-close" id="modalClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <div class="modal-date" id="modalDate"></div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="modal-description" id="modalDescription"></div>
+
+                    <div class="modal-tech-stack" id="modalTechStack"></div>
+
+                    <div class="modal-media" id="modalMedia"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="#" class="modal-button" id="modalGithub" target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        <span>View on GitHub</span>
+                    </a>
+                    <a href="#" class="modal-button" id="modalDemo" target="_blank" rel="noopener noreferrer">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                        </svg>
+                        <span>Live Demo</span>
+                    </a>
+                </div>
 
         <footer class="footer">
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/jfangg/" target="_blank">→ LINKEDIN</a>
                 <a href="https://www.stravamule.app/" target="_blank">→ MULE</a>
                 <a href="resume.pdf" target="_blank">→ RESUME</a>
+
             </div>
-        </footer>
+        </div>
     </div>
+
+    <script src="js/scripts.js"></script>
 </body>
 </html>
