@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="dark">
+<body class="dark home-page">
     <!-- Navigation -->
     <nav class="navbar">
             <div class="nav-container">
@@ -19,7 +19,14 @@
                 </a>
             
             <div class="nav-items">
-                <button class="nav-item active" data-section="projects">
+                <button class="nav-item active" data-section="about">
+                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="nav-text">About</span>
+                </button>
+                <button class="nav-item" data-section="projects">
                     <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                     </svg>
@@ -34,13 +41,6 @@
                         <polyline points="10 9 9 9 8 9"></polyline>
                     </svg>
                     <span class="nav-text">Thoughts</span>
-                </button>
-                <button class="nav-item" data-section="about">
-                    <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span class="nav-text">About</span>
                 </button>
                 <button class="theme-toggle" id="themeToggle">
                     <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -66,52 +66,22 @@
     <!-- Main Content -->
     <main class="main-container">
         <!-- About Section -->
-        <section class="content-section" id="about">
+        <section class="content-section active" id="about">
             <div class="section-content fade-in">
-                <h1 class="section-title">Hi, I'm Jonathan</h1>
+                <h1 class="section-title">hey, i'm jonathan</h1>
                 <div class="about-text">
-                    <p>I'm an ece grad from UW-Madison, currently teaching CS and calculus while building things that probably shouldn't work together.  
-                        My work spans the full spectrum: from optimizing FPGA timing constraints and designing SPI controllers at the hardware level, to 
-                        shipping full-stack web applications with OAuth flows and payment processing. I've built everything from autonomous maze-solving robots to a campus-wide digital ID system actually deployed at my university, because I get restless when projects stay theoretical.</p>
+<p>i'm an ece grad from uw-madison, currently a test development engineer at cisco where i write hardware test automation for the catalyst 9400 switches and occasionally visit factory floors in vietnam, which is a sentence i never expected to say at 23. starting at georgia tech this fall for my master's. my work has ranged from designing spi controllers and optimizing fpga timing constraints to shipping full-stack web apps with oauth and stripe — i've built everything from autonomous maze-solving robots to a campus-wide digital id system that actually got deployed, because i get restless when projects stay theoretical.</p>
 
-                    <p>What excites me most is the intersection of hardware and software. There's something uniquely satisfying about understanding systems at the silicon level, 
-                        then using that knowledge to build products that people actually use. I'm most fulfilled when I'm solving problems that demand both precision engineering 
-                        and thoughtful design. With experience spanning SystemVerilog to React, I gravitate toward projects that bridge different domains. 
-</p>
-<p> In my free time, I'm usually prototyping something new or exploring how technology can make tedious processes genuinely simple.</p>
+<p>what i keep coming back to is the intersection of hardware and software. there's something satisfying about understanding a system at the silicon level and then using that to build something people actually use. i'm most myself when a problem demands both precision engineering and thoughtful design, which is either a genuine personality trait or a coping mechanism for not being able to pick one discipline. with experience spanning systemverilog to react, i tend to gravitate toward projects that don't fit neatly into one category.</p>
+
+<p>in my free time i'm usually prototyping something i probably won't finish, writing on <a href="https://jonathanfang.substack.com" target="_blank" class="social-link" style="display:inline;padding:0;text-transform:none;font-family:inherit;font-size:inherit;letter-spacing:inherit;color:#ce624c;">substack</a>, or exploring how technology can make tedious things genuinely simple. i also make photoshop composites when i need to think with a different part of my brain.</p>
                 </div>
 
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/jfangg/" target="_blank" class="social-link">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/jvanger" target="_blank" class="social-link">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="JF_Embedded.pdf" target="_blank" class="social-link">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                        <span>Resume</span>
-                    </a>
-                </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section class="content-section active" id="projects">
+        <section class="content-section" id="projects">
             <div class="section-content fade-in">
                 <h1 class="section-title">Projects</h1>
                 <div class="scroll-container" id="projectsContainer">
@@ -212,8 +182,8 @@
   
                     <div class="scroll-indicator top" id="projectsScrollTop"></div>
                     <div class="scroll-indicator bottom" id="projectsScrollBottom"></div>
-                    <div class="scroll-hint">scroll to see more</div>
                 </div>
+                <div class="scroll-hint">scroll to see more</div>
             </div>
         </section>
 
@@ -278,8 +248,8 @@
                     </div>
                     <div class="scroll-indicator top" id="blogsScrollTop"></div>
                     <div class="scroll-indicator bottom" id="blogsScrollBottom"></div>
-                    <div class="scroll-hint">scroll to see more</div>
                 </div>
+                <div class="scroll-hint">scroll to see more</div>
             </div>
         </section>
     </main>
@@ -324,11 +294,36 @@
                     </a>
                 </div>
 
-        <footer class="footer">
-
+            </div>
         </div>
     </div>
 
+    <div class="social-links">
+        <a href="https://www.linkedin.com/in/jfangg/" target="_blank" class="social-link" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+        </a>
+        <a href="https://github.com/jvanger" target="_blank" class="social-link" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+        </a>
+        <a href="JF_Embedded.pdf" target="_blank" class="social-link" aria-label="Resume">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+        </a>
+    </div>
+
     <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/shader-bg.js"></script>
 </body>
 </html>

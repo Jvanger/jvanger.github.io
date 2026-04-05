@@ -97,7 +97,7 @@ function initScrollAnimations(containerId) {
     const cards = Array.from(viewport.querySelectorAll('.card'));
     const topIndicator = document.getElementById(containerId.replace('Container', 'ScrollTop'));
     const bottomIndicator = document.getElementById(containerId.replace('Container', 'ScrollBottom'));
-    const scrollHint = container.querySelector('.scroll-hint');
+    const scrollHint = container.parentElement.querySelector('.scroll-hint');
 
     let lastScrollTop = 0;
     let ticking = false;
@@ -169,8 +169,10 @@ function initScrollAnimations(containerId) {
                 // Hide scroll hint when scrolling
                 if (scrollHint) {
                     if (scrollTop > 50) {
+                        scrollHint.style.animation = 'none';
                         scrollHint.style.opacity = '0';
                     } else {
+                        scrollHint.style.animation = '';
                         scrollHint.style.opacity = '';
                     }
                 }
@@ -225,6 +227,12 @@ const observer = new MutationObserver(function(mutations) {
                     const viewport = scrollContainer.querySelector('.cards-viewport');
                     if (viewport) {
                         viewport.scrollTop = 0; // Reset scroll position
+                        // Reset scroll hint visibility
+                        const hint = target.querySelector('.scroll-hint');
+                        if (hint) {
+                            hint.style.opacity = '';
+                            hint.style.animation = '';
+                        }
                         // Trigger visibility update
                         const containerId = scrollContainer.id;
                         if (containerId) {
