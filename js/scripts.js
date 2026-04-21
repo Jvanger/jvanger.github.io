@@ -102,53 +102,21 @@ function initScrollAnimations(containerId) {
     let lastScrollTop = 0;
     let ticking = false;
 
-    // Calculate which cards should be visible (3 at a time)
     function updateCardVisibility() {
         if (!ticking) {
             window.requestAnimationFrame(() => {
                 const viewportRect = viewport.getBoundingClientRect();
                 const scrollTop = viewport.scrollTop;
-                const viewportHeight = viewport.clientHeight;
-                const cardHeight = cards[0] ? cards[0].offsetHeight + parseFloat(getComputedStyle(cards[0]).marginBottom) : 0;
+                const viewportMid = viewportRect.top + viewportRect.height / 2;
+                const falloff = viewportRect.height * 0.55;
 
-                // Calculate which cards should be visible
-                const scrollProgress = scrollTop / cardHeight;
-                const firstVisibleIndex = Math.floor(scrollProgress);
-                const maxVisibleCards = 3;
-
-                cards.forEach((card, index) => {
+                cards.forEach(card => {
                     const cardRect = card.getBoundingClientRect();
-                    const relativeTop = cardRect.top - viewportRect.top;
-                    const relativeBottom = cardRect.bottom - viewportRect.top;
-
-                    // Calculate opacity based on position
-                    let opacity = 1;
-
-                    // Card exiting from top
-                    if (index === firstVisibleIndex - 1 && relativeTop < viewportRect.height) {
-                        const fadeProgress = 1 - (Math.abs(relativeTop) / cardHeight);
-                        opacity = Math.max(0, fadeProgress);
-                    }
-                    // Card entering from bottom
-                    else if (index === firstVisibleIndex + maxVisibleCards) {
-                        const fadeProgress = (viewportRect.height - relativeTop) / cardHeight;
-                        opacity = Math.max(0, Math.min(1, fadeProgress));
-                    }
-                    // Cards in visible range
-                    else if (index >= firstVisibleIndex && index < firstVisibleIndex + maxVisibleCards) {
-                        opacity = 1;
-                    }
-                    // Cards outside range
-                    else {
-                        opacity = 0;
-                    }
-
-                    // Apply opacity smoothly
-                    card.style.opacity = opacity;
-                    card.style.transform = `translateY(0)`;
+                    const cardMid = cardRect.top + cardRect.height / 2;
+                    const t = Math.min(1, Math.abs(cardMid - viewportMid) / falloff);
+                    card.style.opacity = Math.pow(1 - t, 1.4).toFixed(3);
                 });
 
-                // Update scroll indicators
                 const scrollHeight = viewport.scrollHeight;
                 const clientHeight = viewport.clientHeight;
 
@@ -403,9 +371,9 @@ function openModal(projectSlug) {
                 <div class="carousel-items">
                     ${project.media.map(item => {
                         if (item.type === 'link') {
-                            return `<div class="carousel-item"><a href="${item.src}" target="_blank" rel="noopener noreferrer" class="media-link-preview"><iframe src="${item.src}" loading="lazy"></iframe></a></div>`;
+                            return `<div class="carousel-item"><a href="${item.src}" target="_blank" rel="noopener noreferrer" class="media-link-preview"><div class="iframe-skeleton"></div><iframe src="${item.src}" loading="lazy" onload="this.previousElementSibling.classList.add('loaded')"></iframe></a></div>`;
                         } else if (item.type === 'iframe') {
-                            return `<div class="carousel-item"><iframe src="${item.src}" loading="lazy"></iframe></div>`;
+                            return `<div class="carousel-item"><div class="iframe-skeleton"></div><iframe src="${item.src}" loading="lazy" onload="this.previousElementSibling.classList.add('loaded')"></iframe></div>`;
                         } else if (item.type === 'placeholder') {
                             return `<div class="carousel-item"><div class="media-placeholder ${item.category}">${item.text}</div></div>`;
                         } else {
