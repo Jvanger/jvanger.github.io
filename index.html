@@ -3,248 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonathan Fang</title>
+    <title>Jonathan Fang — guest@jonathan-fang:~$</title>
+    <meta name="description" content="Jonathan Fang — hardware × software engineer. A portfolio disguised as a machine. Type help to get started.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/terminal.css">
 </head>
-<body class="dark">
-    <!-- Perimeter frame -->
-    <div class="frame" aria-hidden="true">
-        <div class="frame-border"></div>
-        <span class="frame-corner tl"></span>
-        <span class="frame-corner tr"></span>
-        <span class="frame-corner bl"></span>
-        <span class="frame-corner br"></span>
-
-        <span class="frame-label tl">Jonathan Fang</span>
-        <span class="frame-label tr">Portfolio — Vol. 42</span>
-        <span class="frame-label bl">San Francisco, CA <span class="accent">&middot;</span> <span id="frameClock">00:00:00</span> PT</span>
-        <span class="frame-label br">&copy; 2026</span>
-        <span class="frame-label left">Hardware <span class="accent">&times;</span> Software</span>
-        <span class="frame-label right" id="frameSection">01 / about</span>
+<body>
+    <div id="terminal" role="application" aria-label="Interactive terminal portfolio">
+        <div id="output"></div>
+        <div id="promptLine" class="line"><span id="promptLabel"></span><span id="typed"></span><span id="cursor">&nbsp;</span><span id="typedAfter"></span></div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#about" class="logo" aria-label="Go to About section">jonathan fang</a>
+    <!-- hidden input keeps hardware + mobile keyboards working -->
+    <input id="kbd" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Terminal input">
 
-            <div class="nav-items">
-                <button class="nav-item active" data-section="about"><span class="nav-num">01</span>about</button>
-                <button class="nav-item" data-section="projects"><span class="nav-num">02</span>projects</button>
-                <button class="nav-item" data-section="blogs"><span class="nav-num">03</span>thoughts</button>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-            </div>
+    <!-- CRT chrome -->
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div id="crt" aria-hidden="true"></div>
+
+    <!-- effects -->
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <pre id="train" aria-hidden="true"></pre>
+
+    <!-- fake vim -->
+    <div id="vim" aria-hidden="true">
+        <div id="vimBody"></div>
+        <div id="vimStatus"></div>
+        <div id="vimCmd"></div>
+    </div>
+
+    <noscript>
+        <div style="padding:2rem;font-family:monospace;">
+            JavaScript is off, so the terminal won't boot.
+            <a href="home.html" style="color:#ce624c;">Use the web version instead.</a>
         </div>
-    </nav>
+    </noscript>
 
-    <!-- Main Content -->
-    <main class="main-container">
-        <!-- About Section -->
-        <section class="content-section active" id="about">
-            <div class="section-content">
-                <h1 class="section-title"><span class="kicker">engineer — san francisco, ca</span>hey, i'm jonathan</h1>
-                <div class="about-text">
-                    <p class="lede">i'm an ece grad from uw-madison, now out in the bay area as a test development engineer at cisco, where i port and modernize manufacturing diagnostics for the catalyst 9400 switches and occasionally visit factory floors in vietnam, which is a sentence i never expected to say at 23. i'm starting my master's in computer science at georgia tech this fall. my work has ranged from designing spi controllers and optimizing fpga timing constraints to shipping full-stack web apps with oauth and stripe — i've built everything from autonomous maze-solving robots to a campus-wide digital id system that actually got deployed, because i get restless when projects stay theoretical.</p>
-
-                    <p>what i keep coming back to is the intersection of hardware and software. there's something satisfying about understanding a system at the silicon level and then using that to build something people actually use. i'm most myself when a problem demands both precision engineering and thoughtful design, which is either a genuine personality trait or a coping mechanism for not being able to pick one discipline. with experience spanning systemverilog to react, i tend to gravitate toward projects that don't fit neatly into one category.</p>
-
-                    <p>in my free time i'm usually prototyping something i probably won't finish, writing on <a href="https://jonathanfang.substack.com" target="_blank">substack</a>, or exploring how technology can make tedious things genuinely simple. i also make photoshop composites when i need to think with a different part of my brain.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="content-section" id="projects">
-            <div class="section-content">
-                <h1 class="section-title"><span class="kicker">selected work, 2023 — 2025</span>projects</h1>
-                <ul class="index-list">
-                    <li class="index-item project-item" data-slug="media-bias-lab">
-                        <a href="#">
-                            <span class="index-row">
-                                <span class="index-num">01</span>
-                                <span class="index-title">Media Bias Lab</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">aug '25</span>
-                            </span>
-                            <span class="index-blurb">news article analysis across five bias dimensions with gpt-4 and interactive visualizations</span>
-                        </a>
-                    </li>
-                    <li class="index-item project-item" data-slug="strava-mule">
-                        <a href="#">
-                            <span class="index-row">
-                                <span class="index-num">02</span>
-                                <span class="index-title">Strava Mule</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">jun '25</span>
-                            </span>
-                            <span class="index-blurb">gpx activity simulator with realistic elevation, fatigue modeling, and pace variation</span>
-                        </a>
-                    </li>
-                    <li class="index-item project-item" data-slug="partial-scan-test-design-optimization">
-                        <a href="#">
-                            <span class="index-row">
-                                <span class="index-num">03</span>
-                                <span class="index-title">Partial Scan Test Design Optimization</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">may '25</span>
-                            </span>
-                            <span class="index-blurb">partial scan architecture — 46% efficiency gain, 80% shorter chains vs. full scan</span>
-                        </a>
-                    </li>
-                    <li class="index-item project-item" data-slug="github-contribution-backfill">
-                        <a href="#">
-                            <span class="index-row">
-                                <span class="index-num">04</span>
-                                <span class="index-title">GitHub Contribution Backfill</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">apr '25</span>
-                            </span>
-                            <span class="index-blurb">saas platform for contribution backfilling — oauth, stripe tiers, supabase backend</span>
-                        </a>
-                    </li>
-                    <li class="index-item project-item" data-slug="campus-digital-id-platform">
-                        <a href="#">
-                            <span class="index-row">
-                                <span class="index-num">05</span>
-                                <span class="index-title">Campus Digital ID Platform</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">dec '24</span>
-                            </span>
-                            <span class="index-blurb">digital student id for uw madison — class navigation, peer matching, nfc profile sharing</span>
-                        </a>
-                    </li>
-                    <li class="index-item project-item" data-slug="infrared-sensor-fusion">
-                        <a href="#">
-                            <span class="index-row">
-                                <span class="index-num">06</span>
-                                <span class="index-title">Infrared Sensor Fusion</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">nov '23</span>
-                            </span>
-                            <span class="index-blurb">autonomous maze-solving robot — imu sensor fusion, sub-5% positioning error, verilog + python</span>
-                        </a>
-                    </li>
-                    <li class="index-item project-item" data-slug="psoc6-embedded-console-board">
-                        <a href="#">
-                            <span class="index-row">
-                                <span class="index-num">07</span>
-                                <span class="index-title">PSoC6 Embedded Multiplayer Console</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">nov '23</span>
-                            </span>
-                            <span class="index-blurb">modular game console on psoc6 — freertos, hot-swappable game modules, custom spi lcd drivers</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Writing Section -->
-        <section class="content-section" id="blogs">
-            <div class="section-content">
-                <h1 class="section-title"><span class="kicker">essays on substack</span>thoughts</h1>
-                <ul class="index-list">
-                    <li class="index-item">
-                        <a href="https://jonathanfang.substack.com/p/emergency-contact" target="_blank" rel="noopener noreferrer">
-                            <span class="index-row">
-                                <span class="index-num">01</span>
-                                <span class="index-title">Emergency contact</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">jun '25</span>
-                            </span>
-                            <span class="index-blurb">on what it means to matter</span>
-                        </a>
-                    </li>
-                    <li class="index-item">
-                        <a href="https://jonathanfang.substack.com/p/midwestern-ache" target="_blank" rel="noopener noreferrer">
-                            <span class="index-row">
-                                <span class="index-num">02</span>
-                                <span class="index-title">Midwestern ache</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">may '25</span>
-                            </span>
-                            <span class="index-blurb">reflections in the 608</span>
-                        </a>
-                    </li>
-                    <li class="index-item">
-                        <a href="https://jonathanfang.substack.com/p/bruise-colored-memories" target="_blank" rel="noopener noreferrer">
-                            <span class="index-row">
-                                <span class="index-num">03</span>
-                                <span class="index-title">Bruise colored memories</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">mar '25</span>
-                            </span>
-                            <span class="index-blurb">corner store confessions &amp; tender severance</span>
-                        </a>
-                    </li>
-                    <li class="index-item">
-                        <a href="https://jonathanfang.substack.com/p/indifference-or-security" target="_blank" rel="noopener noreferrer">
-                            <span class="index-row">
-                                <span class="index-num">04</span>
-                                <span class="index-title">Indifference or Insecurity</span>
-                                <span class="index-rule"></span>
-                                <span class="index-date">sep '24</span>
-                            </span>
-                            <span class="index-blurb">and what it means for relationships</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-    </main>
-
-    <!-- Project Modal -->
-    <div class="modal-overlay" id="projectModal">
-        <div class="modal-container">
-            <button class="modal-close" id="modalClose" aria-label="Close">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="modalTitle"></h2>
-                    <div class="modal-date" id="modalDate"></div>
-                </div>
-
-                <div class="modal-body">
-                    <div class="modal-description" id="modalDescription"></div>
-                    <div class="modal-tech-stack" id="modalTechStack"></div>
-                    <div class="modal-media" id="modalMedia"></div>
-                </div>
-
-                <div class="modal-footer">
-                    <a href="#" class="modal-button" id="modalGithub" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="#" class="modal-button" id="modalDemo" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7 7 17 7 17 17"></polyline>
-                        </svg>
-                        <span>Live Demo</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Social links -->
-    <div class="social-links">
-        <a href="https://www.linkedin.com/in/jfangg/" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
-        <a href="https://github.com/jvanger" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
-        <a href="Resume.pdf" target="_blank" class="social-link">Resume</a>
-    </div>
-
-    <script src="js/field.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/terminal.js"></script>
 </body>
 </html>

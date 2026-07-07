@@ -197,6 +197,7 @@ body {
     background: none;
     border: none;
     cursor: pointer;
+    text-decoration: none;
     font-family: var(--font-mono);
     font-size: 11px;
     letter-spacing: 0.14em;

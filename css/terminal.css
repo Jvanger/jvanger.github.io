@@ -1,0 +1,338 @@
+/* ============================================================
+   Jonathan Fang — terminal entrance
+   A portfolio disguised as a machine. guest@jonathan-fang:~$
+   ============================================================ */
+
+:root {
+    --t-bg: #0a0a0c;
+    --t-fg: #e9e7e2;
+    --t-dim: rgba(233, 231, 226, 0.45);
+    --t-faint: rgba(233, 231, 226, 0.25);
+    --t-accent: #ce624c;   /* brand terracotta */
+    --t-green: #a3be8c;
+    --t-yellow: #e5c07b;
+    --t-blue: #8fa7e0;
+    --t-purple: #b4a7e5;
+    --t-red: #d76a5a;
+    --t-font: 'Space Mono', 'Courier New', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: var(--t-bg);
+    color: var(--t-fg);
+    font-family: var(--t-font);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: var(--t-accent);
+    color: var(--t-bg);
+}
+
+/* ============================================================
+   Terminal viewport
+   ============================================================ */
+
+#terminal {
+    position: fixed;
+    inset: 0;
+    padding: 28px 32px 40vh 32px; /* big bottom pad keeps prompt clear of mobile keyboards when scrolled */
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: text;
+    scrollbar-width: thin;
+    scrollbar-color: var(--t-faint) transparent;
+}
+
+#terminal::-webkit-scrollbar { width: 6px; }
+#terminal::-webkit-scrollbar-thumb { background: var(--t-faint); }
+
+.line {
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 1.5em;
+}
+
+/* ============================================================
+   Colors / text roles
+   ============================================================ */
+
+.c-accent { color: var(--t-accent); }
+.c-green  { color: var(--t-green); }
+.c-yellow { color: var(--t-yellow); }
+.c-blue   { color: var(--t-blue); }
+.c-purple { color: var(--t-purple); }
+.c-red    { color: var(--t-red); }
+.c-dim    { color: var(--t-dim); }
+.c-faint  { color: var(--t-faint); }
+.c-bold   { font-weight: 700; }
+
+.c-dir  { color: var(--t-blue); font-weight: 700; }
+.c-exec { color: var(--t-green); }
+.c-hidden { color: var(--t-dim); }
+
+/* clickable commands inside output */
+.cmd {
+    color: var(--t-purple);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--t-faint);
+    text-underline-offset: 3px;
+}
+.cmd:hover {
+    color: var(--t-accent);
+    text-decoration-color: var(--t-accent);
+}
+
+.t-link {
+    color: var(--t-blue);
+    text-decoration: underline;
+    text-decoration-color: var(--t-faint);
+    text-underline-offset: 3px;
+}
+.t-link:hover { color: var(--t-accent); }
+
+/* ============================================================
+   Banner
+   ============================================================ */
+
+.banner {
+    color: var(--t-purple);
+    text-shadow: 0 0 18px rgba(180, 167, 229, 0.35);
+    font-size: clamp(4px, 1.15vw, 11px);
+    line-height: 1.18;
+    letter-spacing: 0;
+    white-space: pre;
+    overflow: hidden;
+    margin: 6px 0 2px;
+}
+
+.banner.banner-accent {
+    color: var(--t-accent);
+    text-shadow: 0 0 18px rgba(206, 98, 76, 0.35);
+}
+
+pre.block {
+    white-space: pre;
+    overflow-x: auto;
+    line-height: 1.35;
+}
+
+/* ============================================================
+   Prompt + cursor
+   ============================================================ */
+
+#promptLine { display: block; }
+
+#cursor {
+    display: inline-block;
+    background: var(--t-fg);
+    color: var(--t-bg);
+    min-width: 0.6em;
+    animation: blink 1.1s steps(1) infinite;
+    white-space: pre;
+}
+
+body.no-blink #cursor { animation: none; }
+
+@keyframes blink {
+    0%, 55% { background: var(--t-fg); color: var(--t-bg); }
+    56%, 100% { background: transparent; color: var(--t-fg); }
+}
+
+/* hidden real input that captures keys (keeps mobile keyboards working) */
+#kbd {
+    position: fixed;
+    bottom: 4px;
+    left: 4px;
+    width: 2px;
+    height: 2px;
+    opacity: 0.01;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: transparent;
+    font-size: 16px; /* prevents iOS zoom-on-focus */
+    caret-color: transparent;
+}
+
+/* ============================================================
+   CRT chrome — scanlines, vignette, flicker
+   ============================================================ */
+
+.scanlines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 90;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0) 0px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0.14) 3px
+    );
+    mix-blend-mode: multiply;
+}
+
+.vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 91;
+    background: radial-gradient(ellipse at center,
+        rgba(0, 0, 0, 0) 58%,
+        rgba(0, 0, 0, 0.38) 100%);
+}
+
+/* ============================================================
+   CRT power-off transition (used by `open` and `exit`)
+   ============================================================ */
+
+#crt {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+    background: #fff;
+    opacity: 0;
+}
+
+body.crt-off #terminal {
+    animation: crt-collapse 0.42s cubic-bezier(0.6, 0, 0.9, 0.4) forwards;
+}
+
+body.crt-off #crt {
+    animation: crt-flash 0.55s ease-out forwards;
+    pointer-events: all;
+}
+
+@keyframes crt-collapse {
+    0%   { transform: scale(1, 1); filter: brightness(1); }
+    55%  { transform: scale(1, 0.006); filter: brightness(3); }
+    75%  { transform: scale(0.3, 0.004); filter: brightness(6); }
+    100% { transform: scale(0, 0); filter: brightness(10); }
+}
+
+@keyframes crt-flash {
+    0%   { opacity: 0; }
+    55%  { opacity: 0.55; }
+    72%  { opacity: 0.85; }
+    100% { opacity: 0; background: #000; }
+}
+
+body.crt-done { background: #000; }
+body.crt-done .scanlines,
+body.crt-done .vignette { display: none; }
+
+/* ============================================================
+   rm -rf meltdown
+   ============================================================ */
+
+body.meltdown #terminal {
+    animation: shake 0.09s linear infinite;
+}
+
+@keyframes shake {
+    0%   { transform: translate(0, 0); }
+    25%  { transform: translate(2px, -2px); }
+    50%  { transform: translate(-2px, 1px); }
+    75%  { transform: translate(1px, 2px); }
+    100% { transform: translate(-1px, -1px); }
+}
+
+body.meltdown .scanlines {
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(215, 106, 90, 0.05) 0px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0.2) 3px
+    );
+}
+
+/* ============================================================
+   cmatrix canvas + sl train
+   ============================================================ */
+
+#fx {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    display: none;
+    background: #050506;
+}
+
+body.fx-on #fx { display: block; }
+
+#train {
+    position: fixed;
+    top: 40%;
+    left: 100vw;
+    z-index: 150;
+    white-space: pre;
+    color: var(--t-fg);
+    font-size: 12px;
+    line-height: 1.2;
+    pointer-events: none;
+    display: none;
+}
+
+/* ============================================================
+   Fake vim
+   ============================================================ */
+
+#vim {
+    position: fixed;
+    inset: 0;
+    z-index: 160;
+    display: none;
+    flex-direction: column;
+    background: #0c0c10;
+    padding: 10px 14px 0;
+    font-size: 14px;
+}
+
+body.vim-on #vim { display: flex; }
+
+#vimBody {
+    flex: 1;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+#vimBody .tilde { color: var(--t-blue); }
+
+#vimStatus {
+    background: var(--t-fg);
+    color: var(--t-bg);
+    padding: 0 8px;
+    font-weight: 700;
+}
+
+#vimCmd {
+    min-height: 1.5em;
+    padding: 0 8px 6px;
+}
+
+/* ============================================================
+   Small screens
+   ============================================================ */
+
+@media (max-width: 640px) {
+    body { font-size: 12.5px; }
+    #terminal { padding: 18px 14px 45vh 14px; }
+    .banner { font-size: 4.1px; }
+}

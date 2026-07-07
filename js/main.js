@@ -60,7 +60,21 @@ document.addEventListener('DOMContentLoaded', function () {
         setInterval(tick, 1000);
     }
 
-    showSection('about');
+    // Deep links from the terminal (index.html):
+    //   home.html#projects        → open a section
+    //   home.html?p=<slug>        → open a project modal
+    const params = new URLSearchParams(window.location.search);
+    const projectSlug = params.get('p');
+    const hash = window.location.hash.replace('#', '');
+
+    if (projectSlug && typeof projectData !== 'undefined' && projectData[projectSlug]) {
+        showSection('projects');
+        setTimeout(() => openModal(projectSlug), 350);
+    } else if (sectionLabels[hash]) {
+        showSection(hash);
+    } else {
+        showSection('about');
+    }
 });
 
 // ===== Keyboard navigation =====
