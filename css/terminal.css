@@ -49,7 +49,7 @@ body {
 #terminal {
     position: fixed;
     inset: 0;
-    padding: 28px 32px 40vh 32px; /* big bottom pad keeps prompt clear of mobile keyboards when scrolled */
+    padding: 44px 48px 40vh 48px; /* clears the frame; big bottom pad keeps prompt clear of mobile keyboards */
     overflow-y: auto;
     overflow-x: hidden;
     cursor: text;
@@ -187,15 +187,61 @@ body.no-blink #cursor { animation: none; }
     mix-blend-mode: multiply;
 }
 
-.vignette {
+/* ============================================================
+   Perimeter frame — minimal twin of the GUI frame (main.css).
+   Same geometry, no labels; the web version fills them in.
+   ============================================================ */
+
+:root {
+    --t-frame-inset: 18px;
+}
+
+.tframe {
     position: fixed;
-    inset: 0;
+    inset: var(--t-frame-inset);
     pointer-events: none;
     z-index: 91;
-    background: radial-gradient(ellipse at center,
-        rgba(0, 0, 0, 0) 58%,
-        rgba(0, 0, 0, 0.38) 100%);
 }
+
+.tframe-border {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--t-faint);
+    animation: tframe-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes tframe-draw {
+    from { clip-path: inset(50% 50% 50% 50%); opacity: 0; }
+    to   { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+.tframe-corner {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    color: var(--t-dim);
+    animation: tframe-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+
+@keyframes tframe-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.tframe-corner::before,
+.tframe-corner::after {
+    content: '';
+    position: absolute;
+    background: currentColor;
+}
+
+.tframe-corner::before { left: 4px; top: 0; width: 1px; height: 9px; }
+.tframe-corner::after  { left: 0; top: 4px; width: 9px; height: 1px; }
+
+.tframe-corner.tl { top: -5px; left: -5px; }
+.tframe-corner.tr { top: -5px; right: -5px; }
+.tframe-corner.bl { bottom: -5px; left: -5px; }
+.tframe-corner.br { bottom: -5px; right: -5px; }
 
 /* ============================================================
    CRT power-off transition (used by `open` and `exit`)
@@ -233,9 +279,10 @@ body.crt-off #crt {
     100% { opacity: 0; background: #000; }
 }
 
+/* the frame stays visible through the transition — the GUI frame
+   picks up in the same place and fills in its labels */
 body.crt-done { background: #000; }
-body.crt-done .scanlines,
-body.crt-done .vignette { display: none; }
+body.crt-done .scanlines { display: none; }
 
 /* ============================================================
    rm -rf meltdown
@@ -331,8 +378,12 @@ body.vim-on #vim { display: flex; }
    Small screens
    ============================================================ */
 
+@media (max-width: 720px) {
+    :root { --t-frame-inset: 10px; } /* matches the GUI frame breakpoint */
+}
+
 @media (max-width: 640px) {
     body { font-size: 12.5px; }
-    #terminal { padding: 18px 14px 45vh 14px; }
+    #terminal { padding: 26px 22px 45vh 22px; }
     .banner { font-size: 4.1px; }
 }

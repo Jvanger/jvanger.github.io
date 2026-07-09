@@ -1099,6 +1099,18 @@
         }
     });
 
+    // right-click is disabled site-wide; here it at least talks back
+    let lastCtxMenu = 0;
+    document.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        if (mode === 'shell' && Date.now() - lastCtxMenu > 4000) {
+            lastCtxMenu = Date.now();
+            print(span('c-dim', 'right-click is disabled. this is a terminal — use your words.'));
+            print();
+            scrollBottom();
+        }
+    });
+
     kbd.addEventListener('input', renderInput);
     kbd.addEventListener('keyup', renderInput);
     kbd.addEventListener('click', renderInput);

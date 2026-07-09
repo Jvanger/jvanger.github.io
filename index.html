@@ -19,9 +19,18 @@
     <!-- hidden input keeps hardware + mobile keyboards working -->
     <input id="kbd" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Terminal input">
 
+    <!-- Perimeter frame — bare version of the GUI frame; its label
+         slots stay empty here and fill in on the web version -->
+    <div class="tframe" aria-hidden="true">
+        <div class="tframe-border"></div>
+        <span class="tframe-corner tl"></span>
+        <span class="tframe-corner tr"></span>
+        <span class="tframe-corner bl"></span>
+        <span class="tframe-corner br"></span>
+    </div>
+
     <!-- CRT chrome -->
     <div class="scanlines" aria-hidden="true"></div>
-    <div class="vignette" aria-hidden="true"></div>
     <div id="crt" aria-hidden="true"></div>
 
     <!-- effects -->

@@ -77,6 +77,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// ===== Context menu disabled site-wide =====
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
+
 // ===== Keyboard navigation =====
 document.addEventListener('keydown', function (e) {
     const active = document.querySelector('.content-section.active');
